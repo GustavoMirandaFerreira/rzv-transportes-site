@@ -1,0 +1,627 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RZV Transportes</title>
+<meta name="description" content="RZV Transportes e Logística: transporte rodoviário de cargas do agronegócio, com frota 100% rastreada e filiais em Osasco, Cubatão, Uberaba e Alfenas.">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Inter+Tight:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#0c0c0c; --ink:#f2f1fa; --white:#fff; --paper:rgba(255,255,255,.03); --grey:#7d79a6; --soft:#aeabcc; --bg:#0a0920;
+  --orange:#f1ac21; --blue:#3a4fd8; --navy:#292256; --navy-deep:#14104f; --sky:#a4c2d1;
+  --display:"Unbounded",system-ui,sans-serif;
+  --text:"Inter Tight","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+  --m:clamp(16px,2.2vw,32px);
+  --ease:cubic-bezier(0.22,1,0.36,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--text);font-size:17px;line-height:1.45;overflow-x:clip}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,p,ul,ol{margin:0;padding:0}
+ul,ol{list-style:none}
+:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+::selection{background:var(--orange);color:var(--navy)}
+.mono{font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:.04em}
+.disp{font-family:var(--display);font-weight:800;text-transform:uppercase;line-height:1.02;letter-spacing:-0.01em}
+.dim{color:var(--grey)}
+
+/* pills */
+.pill{display:inline-flex;align-items:center;gap:10px;height:46px;padding:0 24px;border-radius:999px;font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:.04em;transition:background-color .2s ease,color .2s ease,transform .14s var(--ease);white-space:nowrap}
+.pill:active{transform:scale(.97)}
+.pill.solid{background:#fff;color:var(--navy)}
+.pill.solid:hover{background:var(--orange);color:var(--navy)}
+.pill.line{border:1px solid currentColor}
+.pill.line:hover{background:#fff;border-color:#fff}
+.pill.line:hover span{color:var(--navy)}
+.pill.dark{background:var(--navy);color:#fff}
+.pill.dark:hover{background:var(--orange);color:var(--navy)}
+
+/* ---------- TOP BAR + HEADER ---------- */
+.top{position:absolute;inset:0 0 auto 0;z-index:20;color:#fff}
+.ticker{display:flex;align-items:center;gap:24px;height:34px;padding-inline:var(--m);border-bottom:1px solid rgba(255,255,255,.12);font-size:13px;color:rgba(255,255,255,.75)}
+.ticker .run{flex:1;overflow:hidden;white-space:nowrap}
+.ticker .run span{display:inline-block;padding-right:3em}
+.ticker .links{display:flex;gap:14px;white-space:nowrap}
+.ticker .links a:hover{color:#fff}
+.bar{display:flex;align-items:center;justify-content:space-between;padding:22px var(--m)}
+.logo{display:inline-block;background:#fff;padding:8px 12px}
+.logo img{height:38px;width:auto}
+.menu-btn{font:inherit;background:none;border:0;color:inherit;cursor:pointer;display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:13px;text-transform:uppercase;padding:10px 0}
+.menu-btn i{display:inline-flex;gap:3px}.menu-btn i b{width:3px;height:3px;background:currentColor;display:block;transition:transform .2s var(--ease)}
+.menu-btn:hover i b:nth-child(2){transform:translateY(-3px)}
+.bar-l{display:flex;align-items:center;gap:clamp(24px,5vw,72px)}
+
+/* menu overlay */
+.overlay{position:fixed;inset:0;z-index:50;background:var(--black);color:#fff;display:grid;grid-template-rows:auto 1fr auto;padding:22px var(--m);opacity:0;visibility:hidden;transition:opacity .35s var(--ease),visibility .35s}
+.overlay.open{opacity:1;visibility:visible}
+.overlay nav{align-self:center}
+.overlay nav a{display:block;font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:clamp(38px,7vw,96px);line-height:1.05;transition:color .2s ease,transform .3s var(--ease)}
+.overlay nav a:hover{color:var(--orange);transform:translateX(12px)}
+.overlay .foot{display:flex;flex-wrap:wrap;gap:12px 32px;color:rgba(255,255,255,.7)}
+
+/* ---------- TOPO + PARTÍCULAS ---------- */
+.stripes{display:block;width:clamp(140px,15vw,230px);fill:var(--orange)}
+.stripes polygon:nth-child(even){fill:#efa50e}
+#swarm{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+main,footer{position:relative;z-index:1}
+.hero{position:relative;min-height:100svh;color:#fff;display:flex;align-items:center}
+.hero-copy{padding:150px var(--m) 120px;width:min(760px,52%)}
+.hero .kick{font-family:var(--display);font-weight:600;text-transform:uppercase;font-size:clamp(16px,1.4vw,22px);color:var(--orange);margin-bottom:14px}
+.hero h1{font-size:clamp(46px,6vw,100px)}
+.hero p.sub{margin-top:26px;max-width:42ch;font-size:17px;color:rgba(255,255,255,.82)}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:10px;margin-top:34px}
+.chip{position:absolute;left:var(--x);top:var(--y);display:flex;align-items:center;gap:8px;padding:6px 12px;border:1px solid rgba(255,255,255,.18);border-radius:999px;background:rgba(10,9,32,.6);color:rgba(255,255,255,.85);white-space:nowrap}
+.chip::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--orange);box-shadow:0 0 10px var(--orange)}
+.hint{position:absolute;left:var(--m);bottom:30px;display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.7)}
+.hint i{width:2px;height:22px;background:var(--orange)}
+
+/* ---------- SOBRE + NÚMEROS ---------- */
+.about{display:grid;grid-template-columns:repeat(12,1fr);gap:0 24px;padding:40px var(--m) 160px}
+.about .pic{grid-column:1/5;grid-row:1/3}
+.about .pic img{width:100%;aspect-ratio:16/9;object-fit:cover}
+.about .say{grid-column:7/13;grid-row:1;font-size:clamp(20px,1.75vw,27px);font-weight:500;line-height:1.25;letter-spacing:-0.01em}
+.about .say p+p{margin-top:1em}
+.about .say p.dim{color:var(--soft)}
+.about .say .pill{margin-top:34px}
+.about h2{grid-column:1/7;grid-row:3;align-self:start;margin-top:60px;font-size:clamp(34px,3.6vw,56px);position:sticky;top:120px}
+.stats{grid-column:7/13;grid-row:2/5;margin-top:110px}
+.stats .lead{font-size:16px;font-weight:500;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.12)}
+.stat{padding:34px 0 30px;border-bottom:1px solid rgba(255,255,255,.12)}
+.stat b{display:block;font-family:var(--display);font-weight:800;font-size:clamp(64px,8vw,128px);line-height:1;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;color:#2f2b66;transition:color .8s ease}
+.stat.done b{color:var(--ink)}
+.stat span{display:block;margin-top:14px;color:var(--soft);font-size:16px}
+
+/* ---------- ESTRADA (pinned) ---------- */
+.road{position:relative;height:320vh}
+.road .stick{position:sticky;top:0;height:100svh;display:grid;grid-template-columns:repeat(12,1fr);gap:0 24px;padding:0 var(--m);align-items:center;overflow:hidden}
+.speed{position:absolute;top:28px;left:var(--m);font-variant-numeric:tabular-nums}
+.road .left{grid-column:1/5}
+.road h2{font-size:clamp(34px,3.6vw,56px)}
+.road .left p{margin-top:24px;max-width:36ch;font-size:16px}
+.lane{grid-column:6/8;align-self:stretch;position:relative;background:#13122b;overflow:hidden}
+.lane::before,.lane::after{content:"";position:absolute;top:0;bottom:0;width:4px;background:repeating-linear-gradient(#13122b 0 34px,#f1ac21 34px 70px)}
+.lane::before{left:33%}.lane::after{left:66%}
+.truck{position:absolute;left:50%;top:0;width:clamp(40px,3.4vw,54px);margin-left:calc(clamp(40px,3.4vw,54px)/-2);will-change:transform}
+.road .right{grid-column:9/13}
+.feat{display:grid;grid-template-columns:44px 1fr;gap:6px 18px;padding:26px 0;border-bottom:1px solid rgba(255,255,255,.12);opacity:.32;transition:opacity .5s ease}
+.feat.on{opacity:1}
+.feat svg{grid-row:1/3;width:40px;height:40px}
+.feat h3{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:17px;line-height:1.1}
+.feat p{font-size:16px;color:var(--soft);max-width:34ch}
+
+/* ---------- SERVIÇOS (dark) ---------- */
+.serv{background:rgba(20,16,79,.55);color:#fff;padding:160px var(--m) 140px}
+.serv .head{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;align-items:start}
+.serv h2{grid-column:1/8;font-size:clamp(34px,4vw,62px)}
+.serv .head p{grid-column:9/13;color:rgba(255,255,255,.8);font-size:16px}
+.cols{display:grid;grid-template-columns:repeat(4,1fr);margin-top:110px}
+.col{padding:0 28px 10px;border-left:1px solid rgba(255,255,255,.14)}
+.col:first-child{border-left:0;padding-left:0}
+.col svg{width:46px;height:46px;color:#fff;transition:color .25s ease,transform .3s var(--ease)}
+.col:hover svg{color:var(--orange);transform:translateY(-4px)}
+.col h3{margin-top:40px;font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:clamp(20px,1.6vw,26px);line-height:1.05}
+.col p{margin-top:16px;font-size:16px;color:rgba(255,255,255,.66)}
+
+/* ---------- FULL BLEED ---------- */
+.bleed{position:relative;height:110vh;overflow:hidden;color:#fff;display:grid;place-items:center;text-align:center}
+.bleed img{position:absolute;inset:-6% 0;width:100%;height:112%;object-fit:cover;will-change:transform}
+.bleed::after{content:"";position:absolute;inset:0;background:rgba(5,10,30,.38)}
+.bleed .in{position:relative;z-index:1;padding:0 var(--m)}
+.bleed .mono{margin-bottom:22px}
+.bleed h2{font-size:clamp(38px,5.4vw,90px)}
+
+/* ---------- CLIENTES ---------- */
+.cli{padding:160px var(--m) 140px;display:grid;grid-template-columns:repeat(12,1fr);gap:0 24px}
+.cli .top-l{grid-column:1/7}
+.cli h2{font-size:clamp(34px,4vw,62px)}
+.cli .top-r{grid-column:9/13;align-self:end;font-size:16px;color:var(--soft)}
+.cli figure{grid-column:1/5;margin:70px 0 0;align-self:start;position:sticky;top:100px}
+.cli figure img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.cli figure figcaption{margin-top:12px}
+.cli ul{grid-column:6/13;margin-top:70px;border-top:1px solid rgba(255,255,255,.12)}
+.cli li a{display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:4px 20px;padding:24px 0;border-bottom:1px solid rgba(255,255,255,.12);transition:padding-left .3s var(--ease),color .2s ease}
+.cli li a:hover{padding-left:14px;color:var(--orange)}
+.cli li .n{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:clamp(26px,2.6vw,40px);line-height:1}
+.cli li .k{color:var(--soft)}
+
+/* ---------- FILIAIS (accordion) ---------- */
+.fil{background:var(--paper);padding:140px var(--m);display:grid;grid-template-columns:repeat(12,1fr);gap:0 24px}
+.fil .l{grid-column:1/4}
+.fil h2{font-size:clamp(34px,3.6vw,56px)}
+.fil .l p{margin-top:18px;font-size:16px;color:var(--soft);max-width:28ch}
+.fil .list{grid-column:4/10}
+.fil details{border-bottom:1px solid rgba(255,255,255,.12)}
+.fil summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:48px 1fr 24px;align-items:center;gap:12px;padding:24px 0}
+.fil summary::-webkit-details-marker{display:none}
+.fil summary .t{font-family:var(--display);font-weight:600;text-transform:uppercase;font-size:clamp(17px,1.4vw,21px)}
+.fil summary .x{width:10px;height:10px;border-radius:50%;background:#4a4775;justify-self:end;transition:background-color .2s ease,transform .3s var(--ease)}
+.fil details[open] summary .x,.fil summary:hover .x{background:var(--orange);transform:scale(1.4)}
+.fil .body{padding:0 0 30px 60px;display:grid;grid-template-columns:1fr 1fr;gap:18px 24px;font-size:16px}
+.fil .body .mono{color:var(--soft);display:block;margin-bottom:4px}
+.fil .body a{text-decoration:underline;text-underline-offset:3px}
+.fil .body a:hover{color:var(--orange)}
+.fil .r{grid-column:10/13;align-self:start;font-size:16px}
+.fil .r p{margin-bottom:18px;max-width:24ch}
+
+/* ---------- CTA ---------- */
+.cta{background:rgba(41,34,86,.55);color:#fff;text-align:center;padding:170px var(--m)}
+.cta h2{font-size:clamp(36px,4.6vw,72px)}
+.cta .stripes{margin:0 auto 34px;width:150px}
+.cta p{margin:22px auto 34px;max-width:40ch;color:rgba(255,255,255,.8)}
+.cta .pill.line{color:#fff;border-color:rgba(255,255,255,.5)}
+.cta .pill.line:hover{background:var(--orange);border-color:var(--orange)}.cta .pill.line:hover span{color:var(--navy)}
+
+/* ---------- FOOTER ---------- */
+footer{padding:60px var(--m) 24px;overflow:hidden}
+.f-top{display:flex;justify-content:space-between;gap:24px;padding-bottom:26px;border-bottom:1px solid rgba(255,255,255,.12);font-size:16px}
+.cities{overflow:hidden;border-bottom:1px solid rgba(255,255,255,.12);padding:18px 0}
+.cities .track{display:flex;width:max-content}
+.cities p{font-family:var(--display);font-weight:600;font-size:clamp(26px,3vw,44px);color:rgba(255,255,255,.14);white-space:nowrap;padding-right:.5em;text-transform:uppercase}
+.f-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;padding:46px 0}
+.f-grid .ph{grid-column:1/5}
+.f-grid .ph img{width:100%;aspect-ratio:16/9;object-fit:cover;filter:grayscale(1) contrast(1.1)}
+.f-grid .addr{grid-column:1/5;font-size:16px}
+.f-grid .addr .mono,.f-grid .ct .mono{display:block;color:var(--soft);margin:22px 0 6px}
+.f-grid .ct{grid-column:6/9;grid-row:1/3;font-size:16px}
+.f-grid .ct div:first-child .mono{margin-top:0}
+.f-grid .ct a:hover{color:var(--orange)}
+.f-grid .map{grid-column:9/13;grid-row:1/3}
+#map{width:100%;aspect-ratio:1/1;display:block}
+.legal{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 24px;padding:18px 0;border-top:1px solid rgba(255,255,255,.12);color:var(--soft);font-size:13px}
+.credits{font-size:13px;color:var(--soft);max-width:75ch;padding:10px 0 20px}
+.credits a{text-decoration:underline}
+.dotword{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:7.4vw;line-height:1.05;letter-spacing:-0.02em;white-space:nowrap;color:transparent;background:radial-gradient(circle,rgba(241,172,33,.55) 1.5px,transparent 1.8px) 0 0/6px 6px;-webkit-background-clip:text;background-clip:text;margin-top:10px;max-width:none}
+
+/* ---------- MOTION ---------- */
+@media (prefers-reduced-motion:no-preference){
+  .ticker .run div{display:inline-block;animation:tick 40s linear infinite}
+  .cities .track{animation:tick 50s linear infinite}
+  .js [data-up]{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:calc(var(--i,0)*80ms)}
+  .js [data-up].in{opacity:1;transform:none}
+  .js .stripes polygon{opacity:0;transform:translateX(-60px);animation:bar .8s var(--ease) forwards}
+  .js .stripes polygon:nth-child(2){animation-delay:.08s}.js .stripes polygon:nth-child(3){animation-delay:.16s}.js .stripes polygon:nth-child(4){animation-delay:.24s}
+}
+@keyframes tick{to{transform:translateX(-50%)}}
+@keyframes rise{to{opacity:1;transform:none}}
+@keyframes bar{to{opacity:1;transform:none}}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:900px){
+  .ticker .links{display:none}
+  .bar .pill{display:none}
+  .hero{align-items:flex-start}
+  .hero-copy{width:100%;padding-top:132px;padding-bottom:52svh}
+  .chip{display:none}
+  .logo img{height:30px}
+  .about,.road .stick,.serv .head,.cli,.fil,.f-grid{display:block}
+  .about{padding-top:24px;padding-bottom:110px}
+  .about .say{margin-top:36px}
+  .about h2{position:static;margin-top:80px}
+  .stats{margin-top:40px}
+  .road{height:auto}
+  .road .stick{position:relative;height:auto;padding:110px var(--m) 90px}
+  .speed{top:40px}
+  .lane{display:none}
+  .road .right{margin-top:40px}
+  .feat{opacity:1}
+  .serv{padding:110px var(--m) 100px}
+  .serv .head p{margin-top:24px}
+  .cols{grid-template-columns:1fr 1fr;gap:48px 0;margin-top:64px}
+  .col:nth-child(3){border-left:0;padding-left:0}
+  .bleed{height:80vh}
+  .cli{padding:110px var(--m) 100px}
+  .cli .top-r{margin-top:20px}
+  .cli figure{position:static;margin-top:44px;width:70%}
+  .cli ul{margin-top:44px}
+  .fil{padding:110px var(--m)}
+  .fil .list{margin-top:40px}
+  .fil .r{margin-top:40px}
+  .fil .body{grid-template-columns:1fr;padding-left:60px}
+  .cta{padding:120px var(--m)}
+  .f-top{flex-direction:column}
+  .f-grid > *+*{margin-top:34px}
+  .f-grid .map{max-width:360px}
+}
+@media (max-width:560px){
+  .cols{grid-template-columns:1fr}
+  .col{border-left:0;padding-left:0}
+  .fil .body{padding-left:0}
+  .hero h1{font-size:10.4vw}
+  .bleed h2{font-size:9vw}
+  .about h2,.road h2,.serv h2,.cli h2,.fil h2{font-size:7.4vw}
+  .cta h2{font-size:8.2vw}
+}
+</style>
+</head>
+<body>
+<canvas id="swarm" aria-hidden="true"></canvas>
+
+<div class="top">
+  <div class="ticker mono">
+    <div class="run" aria-hidden="true"><div><span>Frota 100% rastreada pelo Grupo Tracker</span><span>Políticas SASSMAQ: saúde, segurança, meio ambiente e qualidade</span><span>Seguro total contra roubo e acidentes, inclusive terceiros</span><span>Filiais em Osasco, Cubatão, Uberaba e Alfenas</span><span>Frota 100% rastreada pelo Grupo Tracker</span><span>Políticas SASSMAQ: saúde, segurança, meio ambiente e qualidade</span><span>Seguro total contra roubo e acidentes, inclusive terceiros</span><span>Filiais em Osasco, Cubatão, Uberaba e Alfenas</span></div></div>
+    <div class="links"><a href="tel:+551146245711">(11) 4624-5711</a><span>|</span><a href="#filiais">Nossas filiais</a></div>
+  </div>
+  <div class="bar">
+    <div class="bar-l">
+      <a class="logo" href="#home"><img src="assets/logo-rzv.png" width="269" height="74" alt="RZV Transportes"></a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu"><i aria-hidden="true"><b></b><b></b><b></b></i>Menu</button>
+    </div>
+    <a class="pill solid" href="#cotar">Pedir cotação</a>
+  </div>
+</div>
+
+<div class="overlay" id="menu" aria-hidden="true">
+  <div class="bar" style="padding:0"><span class="logo"><img src="assets/logo-rzv.png" width="269" height="74" alt="RZV Transportes"></span><button class="menu-btn" type="button" data-close>Fechar</button></div>
+  <nav aria-label="Menu principal">
+    <a href="#home">Início</a><a href="#sobre">Sobre</a><a href="#seguranca">Segurança</a><a href="#diferenciais">Diferenciais</a><a href="#clientes">Clientes</a><a href="#filiais">Filiais</a><a href="#cotar">Cotação</a>
+  </nav>
+  <div class="foot mono"><a href="mailto:cubatao@rzvtransportes.com.br">cubatao@rzvtransportes.com.br</a><a href="tel:+551146245711">(11) 4624-5711</a><span>Transporte rodoviário de cargas</span></div>
+</div>
+
+<main>
+  <section class="hero" id="home" data-shape="truck" aria-labelledby="hero-t">
+    <div class="hero-copy">
+      <p class="kick" data-up>Do porto à lavoura</p>
+      <h1 class="disp" id="hero-t" data-up style="--i:1">Cada km<br>rastreado.</h1>
+      <p class="sub" data-up style="--i:2">Transporte rodoviário de cargas do agronegócio, com a frota inteira rastreada pelo Grupo Tracker e filiais em Osasco, Cubatão, Uberaba e Alfenas.</p>
+      <div class="hero-ctas" data-up style="--i:3"><a class="pill solid" href="#cotar">Pedir cotação</a><a class="pill line" href="#filiais"><span>Nossas filiais</span></a></div>
+    </div>
+    <span class="chip mono" style="--x:58%;--y:24%" aria-hidden="true">Grupo Tracker</span>
+    <span class="chip mono" style="--x:84%;--y:40%" aria-hidden="true">Seguro total</span>
+    <span class="chip mono" style="--x:62%;--y:78%" aria-hidden="true">Volvo FH 540</span>
+    <p class="hint mono" aria-hidden="true"><i></i>Role para ver a rota</p>
+  </section>
+
+  <section class="about" id="sobre" data-shape="brasil" aria-labelledby="sobre-t">
+    <div class="pic" data-up><img src="assets/imigrantes-viaduto.jpg" width="1040" height="480" loading="lazy" alt="Viadutos da Rodovia dos Imigrantes descendo a Serra do Mar"></div>
+    <div class="say" data-up style="--i:1">
+      <p>A RZV é uma transportadora nova, dirigida por profissionais com mais de 42 anos de estrada. Rodamos por todo o território nacional como uma extensão da sua empresa.</p>
+      <p class="dim">Qualidade, eficiência e segurança em cada viagem, a um custo baixo, do litoral paulista ao interior de Minas Gerais.</p>
+      <a class="pill line" href="#filiais"><span>Fale com uma filial</span></a>
+    </div>
+    <h2 class="disp" id="sobre-t" data-up><span class="dim">Nome novo.</span><br>Estrada antiga.</h2>
+    <div class="stats">
+      <p class="lead" data-up>Números que a estrada confirma</p>
+      <div class="stat" data-up><b data-count="42" data-suffix="+">0</b><span>Anos de experiência de quem dirige a RZV</span></div>
+      <div class="stat" data-up><b data-count="100" data-suffix="%">0</b><span>Da frota com rastreador e localizador</span></div>
+      <div class="stat" data-up><b data-count="4">0</b><span>Bases: Osasco, Cubatão, Uberaba e Alfenas</span></div>
+      <div class="stat" data-up><b data-count="24" data-suffix="h">0</b><span>De segurança nos escritórios</span></div>
+    </div>
+  </section>
+
+  <section class="road" id="seguranca" data-shape="dust" aria-labelledby="seg-t">
+    <div class="stick">
+      <p class="speed mono" aria-hidden="true"><span id="kmh">00</span> km/h</p>
+      <div class="left">
+        <h2 class="disp" id="seg-t"><span class="dim">Segurança</span><br>em cada km</h2>
+        <p>Todos os veículos têm rastreador e localizador para emergências, monitorados pelo Grupo Tracker. A frota roda com seguro completo, inclusive contra terceiros.</p>
+      </div>
+      <div class="lane" aria-hidden="true">
+        <svg class="truck" viewBox="0 0 46 210" aria-hidden="true"><defs><pattern id="rib" width="46" height="5" patternUnits="userSpaceOnUse"><rect width="46" height="5" fill="#ececec"/><rect y="4" width="46" height="1" fill="#cfcfcf"/></pattern></defs><rect x="3" y="0" width="40" height="154" rx="2" fill="url(#rib)"/><rect x="3" y="0" width="40" height="154" rx="2" fill="none" stroke="#bdbdbd"/><rect x="18" y="154" width="10" height="6" fill="#333"/><rect x="4" y="160" width="38" height="44" rx="7" fill="#262626"/><rect x="8" y="190" width="30" height="10" rx="3" fill="#4d5560"/><rect x="0" y="176" width="4" height="7" rx="1" fill="#262626"/><rect x="42" y="176" width="4" height="7" rx="1" fill="#262626"/></svg>
+      </div>
+      <ul class="right">
+        <li class="feat"><svg data-px="pin" viewBox="0 0 9 9" aria-hidden="true"></svg><h3>Rastreamento<br>em tempo real</h3><p>Rastreador e localizador em todos os veículos, monitorados pelo Grupo Tracker.</p></li>
+        <li class="feat"><svg data-px="shield" viewBox="0 0 9 9" aria-hidden="true"></svg><h3>Seguro<br>completo</h3><p>Cobertura contra roubo e acidentes, inclusive terceiros, com assistência ao veículo e ao motorista.</p></li>
+        <li class="feat"><svg data-px="people" viewBox="0 0 9 9" aria-hidden="true"></svg><h3>Regras claras<br>na cabine</h3><p>Proibido porte ou uso de drogas, bebida alcoólica em serviço e substâncias psicoativas.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="serv" id="diferenciais" data-shape="stripes" aria-labelledby="dif-t">
+    <div class="head">
+      <h2 class="disp" id="dif-t" data-up>De ponta<br><span class="dim">a ponta.</span></h2>
+      <p data-up style="--i:1">Tudo que a sua carga precisa, numa só transportadora. Da saída no porto à entrega no campo, a RZV cuida da viagem inteira, com políticas escritas de saúde, segurança, meio ambiente e qualidade.</p>
+    </div>
+    <div class="cols">
+      <div class="col" data-up><svg data-px="truck" viewBox="0 0 9 9" aria-hidden="true"></svg><h3>Carga<br>rodoviária</h3><p>Transporte rodoviário de cargas em todo o território nacional, com foco no agronegócio.</p></div>
+      <div class="col" data-up style="--i:1"><svg data-px="pin" viewBox="0 0 9 9" aria-hidden="true"></svg><h3>Frota<br>rastreada</h3><p>Monitoramento pelo Grupo Tracker e localizador de emergência em cada veículo.</p></div>
+      <div class="col" data-up style="--i:2"><svg data-px="leaf" viewBox="0 0 9 9" aria-hidden="true"></svg><h3>Política<br>SASSMAQ</h3><p>Melhoria contínua, capacitação, requisitos legais e prevenção da poluição, de lesões e de doenças.</p></div>
+      <div class="col" data-up style="--i:3"><svg data-px="people" viewBox="0 0 9 9" aria-hidden="true"></svg><h3>Cuidado<br>com a equipe</h3><p>Assistência médica, seguro saúde, ambiente de trabalho seguro e escritórios com segurança 24 h.</p></div>
+    </div>
+  </section>
+
+  <section class="bleed" aria-labelledby="bleed-t">
+    <img src="assets/vista-parcial-de-cubatao-sp-a-partir.jpg" width="1920" height="1280" loading="lazy" alt="Cubatão e a Baixada Santista vistos do alto da Serra do Mar">
+    <div class="in">
+      <p class="mono" data-up>Cubatão · Osasco · Alfenas · Uberaba</p>
+      <h2 class="disp" id="bleed-t" data-up style="--i:1">Da serra<br>ao cerrado.</h2>
+    </div>
+  </section>
+
+  <section class="cli" id="clientes" data-shape="dust" aria-labelledby="cli-t">
+    <div class="top-l"><h2 class="disp" id="cli-t" data-up>Quem já roda<br><span class="dim">com a RZV</span></h2></div>
+    <p class="top-r" data-up style="--i:1">Fabricantes de fertilizantes, cooperativas e empresas do agronegócio que confiam a carga à RZV.</p>
+    <figure data-up><img src="assets/rondonopolis-transporte-soja-roosevelt-pinheiro-28mar09.jpg" width="1920" height="1277" loading="lazy" alt="Carretas graneleiras enlonadas levando safra pela rodovia" style="object-position:30% 70%"><figcaption class="mono dim">Safra na estrada</figcaption></figure>
+    <ul>
+      <li data-up><a href="https://www.yarabrasil.com.br" target="_blank" rel="noopener"><span class="n">Yara</span><span class="k mono">Fertilizantes ↗</span></a></li>
+      <li data-up><a href="https://www.mosaicco.com.br" target="_blank" rel="noopener"><span class="n">Mosaic</span><span class="k mono">Fertilizantes ↗</span></a></li>
+      <li data-up><a href="https://www.heringer.com.br" target="_blank" rel="noopener"><span class="n">Heringer</span><span class="k mono">Fertilizantes ↗</span></a></li>
+      <li data-up><a href="https://www.fertipar.com.br" target="_blank" rel="noopener"><span class="n">Fertipar</span><span class="k mono">Fertilizantes ↗</span></a></li>
+      <li data-up><a href="https://www.coplacana.com.br" target="_blank" rel="noopener"><span class="n">Coplacana</span><span class="k mono">Cooperativa ↗</span></a></li>
+      <li data-up><a href="https://www.coplana.com" target="_blank" rel="noopener"><span class="n">Coplana</span><span class="k mono">Cooperativa ↗</span></a></li>
+      <li data-up><a href="https://www.coopercitrus.com.br" target="_blank" rel="noopener"><span class="n">Coopercitrus</span><span class="k mono">Cooperativa ↗</span></a></li>
+      <li data-up><a href="https://www.agronelli.com.br" target="_blank" rel="noopener"><span class="n">Agronelli</span><span class="k mono">Agronegócio ↗</span></a></li>
+      <li data-up><a href="https://www.agrosema.com.br" target="_blank" rel="noopener"><span class="n">Agrocema</span><span class="k mono">Agronegócio ↗</span></a></li>
+      <li data-up><a href="https://www.mfrural.com.br" target="_blank" rel="noopener"><span class="n">Quagril</span><span class="k mono">Agronegócio ↗</span></a></li>
+    </ul>
+  </section>
+
+  <section class="fil" id="filiais" data-shape="brasil" aria-labelledby="fil-t">
+    <div class="l"><h2 class="disp" id="fil-t" data-up>Filiais</h2><p data-up style="--i:1">Quatro bases entre o porto e o campo. Abra a mais perto da sua carga.</p></div>
+    <div class="list">
+      <details data-up>
+        <summary><span class="mono">01</span><span class="t">Osasco, SP · Matriz</span><span class="x"></span></summary>
+        <div class="body"><div><span class="mono">Telefones</span><a href="tel:+551146245711">(11) 4624-5711</a><br><a href="tel:+551145751480">(11) 4575-1480</a></div><div><span class="mono">Atendimento</span>Matriz da RZV Transportes e Logística.</div></div>
+      </details>
+      <details data-up open>
+        <summary><span class="mono">02</span><span class="t">Cubatão, SP</span><span class="x"></span></summary>
+        <div class="body"><div><span class="mono">Endereço</span><a href="https://www.google.com/maps/search/?api=1&query=Avenida+Manoel+Santos+Pereira+100+Jardim+Industrial+Cubat%C3%A3o+SP" target="_blank" rel="noopener">Av. Manoel Santos Pereira, 100<br>Jardim Industrial, 11570-000</a></div><div><span class="mono">Telefones</span><a href="tel:+551333671221">(13) 3367-1221</a><br><a href="tel:+551333671224">(13) 3367-1224</a></div></div>
+      </details>
+      <details data-up>
+        <summary><span class="mono">03</span><span class="t">Uberaba, MG</span><span class="x"></span></summary>
+        <div class="body"><div><span class="mono">Endereço</span><a href="https://www.google.com/maps/search/?api=1&query=Avenida+Filomena+Cartafina+22031+Distrito+Industrial+Uberaba+MG" target="_blank" rel="noopener">Av. Filomena Cartafina, 22.031, sala 4<br>Distrito Industrial, 38040-450</a></div><div><span class="mono">Telefones</span><a href="tel:+553433140243">(34) 3314-0243</a><br><a href="tel:+553433168722">(34) 3316-8722</a></div></div>
+      </details>
+      <details data-up>
+        <summary><span class="mono">04</span><span class="t">Alfenas, MG</span><span class="x"></span></summary>
+        <div class="body"><div><span class="mono">Endereço</span><a href="https://www.google.com/maps/search/?api=1&query=Avenida+Jos%C3%A9+Paulino+da+Costa+953+Vila+Teixeira+Alfenas+MG" target="_blank" rel="noopener">Av. José Paulino da Costa, 953<br>Vila Teixeira, 37132-204</a></div><div><span class="mono">Telefones</span><a href="tel:+553532928632">(35) 3292-8632</a><br><a href="tel:+5535988928090">(35) 9 8892-8090</a></div></div>
+      </details>
+    </div>
+    <div class="r" data-up><p>Prefere falar direto? Nossa equipe responde por e-mail.</p><a class="pill dark" href="mailto:cubatao@rzvtransportes.com.br">Escreva para nós</a></div>
+  </section>
+
+  <section class="cta" id="cotar" data-shape="stripes" aria-labelledby="cta-t">
+    <div data-up><svg class="stripes" viewBox="0 0 240 100" aria-hidden="true"><polygon points="60,0 240,0 226,18 46,18"/><polygon points="30,27 240,27 226,45 16,45"/><polygon points="14,54 240,54 226,72 0,72"/><polygon points="44,81 240,81 226,99 30,99"/></svg></div>
+    <h2 class="disp" id="cta-t" data-up>Pronto para<br>carregar?</h2>
+    <p data-up style="--i:1">Diga origem, destino, tipo de carga e peso. O e-mail já sai com tudo pronto para preencher.</p>
+    <a data-up style="--i:2" class="pill line" href="mailto:cubatao@rzvtransportes.com.br?subject=Pedido%20de%20cota%C3%A7%C3%A3o&body=Origem%3A%20%0ADestino%3A%20%0ATipo%20de%20carga%3A%20%0APeso%20aproximado%3A%20%0AData%20desejada%3A%20"><span>Pedir cotação</span></a>
+  </section>
+</main>
+
+<footer>
+  <div class="f-top"><p>Do porto à lavoura.<br>Cada km rastreado.</p><a class="mono" href="#home">Voltar ao topo ↑</a></div>
+  <div class="cities" aria-hidden="true"><div class="track"><p>Osasco · Cubatão · Uberaba · Alfenas · Fertilizantes · Grãos · Insumos · </p><p>Osasco · Cubatão · Uberaba · Alfenas · Fertilizantes · Grãos · Insumos · </p></div></div>
+  <div class="f-grid">
+    <div class="ph"><img src="assets/vista-parcial-de-cubatao-sp-a-partir.jpg" width="1920" height="1280" loading="lazy" alt="Cubatão e a Baixada Santista vistos do alto da Serra do Mar"></div>
+    <div class="addr"><span class="mono">Matriz</span>RZV Transportes e Logística Ltda.<br>Osasco, SP<span class="mono">Atuamos em</span>Osasco / Cubatão / Uberaba / Alfenas</div>
+    <div class="ct">
+      <div><span class="mono">E-mail</span><a href="mailto:cubatao@rzvtransportes.com.br">cubatao@rzvtransportes.com.br</a></div>
+      <div><span class="mono">Matriz</span><a href="tel:+551146245711">(11) 4624-5711</a></div>
+      <div><span class="mono">Cubatão</span><a href="tel:+551333671221">(13) 3367-1221</a></div>
+      <div><span class="mono">Uberaba</span><a href="tel:+553433140243">(34) 3314-0243</a></div>
+      <div><span class="mono">Alfenas</span><a href="tel:+553532928632">(35) 3292-8632</a></div>
+    </div>
+    <div class="map"><canvas id="map" aria-label="Mapa do Brasil com as quatro filiais da RZV" role="img"></canvas></div>
+  </div>
+  <p class="credits">Fotos (Wikimedia Commons, ilustrativas da região e do setor, não da frota da RZV): <a href="https://commons.wikimedia.org/w/index.php?curid=60228015">Rodovia Imigrantes</a>, Lucas Molina, CC BY-SA 4.0; <a href="https://commons.wikimedia.org/w/index.php?curid=34274777">Vista de Cubatão</a>, Ulrich Peters, CC BY-SA 2.0; <a href="https://commons.wikimedia.org/w/index.php?curid=12066596">Porto de Santos</a>, Jorge Andrade, CC BY 2.0; <a href="https://commons.wikimedia.org/wiki/File:Rondon%C3%B3polis_transporte_soja_(Roosevelt_Pinheiro)_28mar09.JPG">Transporte de soja</a> e <a href="https://commons.wikimedia.org/wiki/File:Ronodon%C3%B3polis_colheita_soja_(Roosevelt_Pinheiro)_28mar09.jpg">Colheita de soja</a>, Roosevelt Pinheiro/ABr, CC BY 3.0; <a href="https://commons.wikimedia.org/wiki/File:Caminh%C3%A3o_de_Cana_na_Rodovia_Armando_Sales_Oliveira_SP-322_-_Sert%C3%A3ozinho_-_panoramio.jpg">Rodovia SP-322</a>, Marco Aurélio Esparza, CC BY-SA 3.0. Foto da frota e logo: RZV Transportes. Mapa: Natural Earth.</p>
+  <div class="legal mono"><span>© 2026 RZV Transportes e Logística Ltda.</span><span>Políticas SASSMAQ · Segurança patrimonial · Álcool e drogas</span></div>
+  <p class="dotword" aria-hidden="true">RZVTRANSPORTES</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js" integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i" crossorigin="anonymous"></script>
+<script src="assets/geo-dots.js"></script>
+<script>
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// ---- pixel icons
+const PX = {
+  pin:   ['..XXXXX..','.XX...XX.','XX..X..XX','XX.XXX.XX','XX..X..XX','.XX...XX.','..XX.XX..','...XXX...','....X....'],
+  shield:['XXXXXXXXX','X.......X','X...X...X','X..XXX..X','X...X...X','.X.....X.','..X...X..','...X.X...','....X....'],
+  people:['..X...X..','.XXX.XXX.','..X...X..','.........','.XXX.XXX.','XXXXXXXXX','XXXXXXXXX','XXXXXXXXX','.........'],
+  truck: ['.........','XXXXXX...','XXXXXXXX.','XXXXXX.XX','XXXXXXXXX','XXXXXXXXX','.X.X..X..','.........','.........'],
+  leaf:  ['......XXX','....XXXXX','...XXXX.X','..XXXX..X','..XXX..X.','..XX..X..','..X.XX...','.X.......','X........']
+};
+document.querySelectorAll('svg[data-px]').forEach(s => {
+  s.setAttribute('fill', 'currentColor');
+  s.innerHTML = PX[s.dataset.px].flatMap((row, y) => [...row].map((c, x) => c === 'X' ? `<rect x="${x + .08}" y="${y + .08}" width=".84" height=".84"/>` : '')).join('');
+});
+
+// ---- menu
+(() => {
+  const ov = document.getElementById('menu'), open = document.querySelector('.top .menu-btn');
+  const set = v => { ov.classList.toggle('open', v); ov.setAttribute('aria-hidden', String(!v)); open.setAttribute('aria-expanded', String(v)); document.body.style.overflow = v ? 'hidden' : ''; };
+  open.addEventListener('click', () => set(true));
+  ov.querySelector('[data-close]').addEventListener('click', () => set(false));
+  ov.querySelectorAll('nav a').forEach(a => a.addEventListener('click', () => set(false)));
+  addEventListener('keydown', e => { if (e.key === 'Escape') set(false); });
+})();
+
+// ---- reveal + counters
+(() => {
+  const els = document.querySelectorAll('[data-up]');
+  const count = el => {
+    const b = el.querySelector('[data-count]'); if (!b || el.dataset.counted) return; el.dataset.counted = 1;
+    const end = +b.dataset.count, suf = b.dataset.suffix || '', t0 = performance.now(), d = reduce ? 0 : 1400;
+    const step = t => { const k = d ? Math.min(1, (t - t0) / d) : 1; b.textContent = Math.round(end * (1 - Math.pow(1 - k, 3))) + suf; if (k < 1) requestAnimationFrame(step); else el.classList.add('done'); };
+    requestAnimationFrame(step);
+  };
+  if (!('IntersectionObserver' in window)) { els.forEach(e => { e.classList.add('in'); count(e); }); return; }
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); count(e.target); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px', threshold: .12 });
+  els.forEach(e => io.observe(e));
+  addEventListener('load', () => setTimeout(() => els.forEach(e => { const r = e.getBoundingClientRect(); if (r.top < innerHeight && r.bottom > 0) { e.classList.add('in'); count(e); } }), 2500));
+})();
+
+// ---- road: truck follows scroll, speed from scroll velocity, features light up; parallax on the bleed photo
+(() => {
+  const road = document.querySelector('.road'), truck = document.querySelector('.truck'), kmh = document.getElementById('kmh'), feats = document.querySelectorAll('.feat'), bleed = document.querySelector('.bleed img');
+  let last = scrollY, v = 0;
+  const tick = () => {
+    const r = road.getBoundingClientRect(), span = r.height - innerHeight;
+    const p = Math.min(1, Math.max(0, -r.top / (span || 1)));
+    const lane = truck.parentElement.clientHeight;
+    truck.style.transform = `translateY(${(-0.3 + p * 1.3) * lane}px)`;
+    feats.forEach((f, i) => f.classList.toggle('on', innerWidth <= 900 || p >= i / feats.length - 0.02));
+    const dy = Math.abs(scrollY - last); last = scrollY;
+    v += (Math.min(110, dy * 1.6) - v) * 0.12;
+    kmh.textContent = String(Math.round(v)).padStart(2, '0');
+    if (bleed && !reduce) { const b = bleed.parentElement.getBoundingClientRect(); bleed.style.transform = `translateY(${(b.top / innerHeight) * -6}%)`; }
+    requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+})();
+
+// ---- swarm: particles that take RZV shapes as the page scrolls (truck, Brazil map, logo stripes, dust)
+(() => {
+  const cv = document.getElementById('swarm'), ctx = cv.getContext('2d');
+  let W, H, dpr, mob, N, P = [], shapes = {}, cur = 'truck', mx = -1e4, my = -1e4;
+  const rnd = (a, b) => a + Math.random() * (b - a);
+  const AMB = [241, 172, 33];
+
+  // shape builders return arrays of {x,y,c,a,s} with x,y in 0..1 and an aspect (w/h)
+  function truckShape(img) {
+    const w = 300, h = Math.round(w * img.naturalHeight / img.naturalWidth), c = document.createElement('canvas'); c.width = w; c.height = h;
+    const x = c.getContext('2d', { willReadFrequently: true }); x.drawImage(img, 0, 0, w, h);
+    const d = x.getImageData(0, 0, w, h).data, cand = [], L = (i) => (d[i] * .3 + d[i + 1] * .59 + d[i + 2] * .11);
+    for (let yy = 0; yy < h - 1; yy++) for (let xx = 0; xx < w - 1; xx++) {
+      const i = (yy * w + xx) * 4; if (d[i + 3] < 150) continue;
+      const l = L(i), e = Math.abs(l - L(i + 4)) + Math.abs(l - L(i + w * 4));
+      const sat = Math.max(d[i], d[i + 1], d[i + 2]) - Math.min(d[i], d[i + 1], d[i + 2]);
+      cand.push({ x: xx / w, y: yy / h, c: [d[i], d[i + 1], d[i + 2]], l, wgt: .12 + Math.pow(e / 40, 1.6) + (sat > 70 ? 1.4 : 0) });
+    }
+    const cum = new Float64Array(cand.length); let tot = 0; cand.forEach((q, i) => { tot += q.wgt; cum[i] = tot; });
+    const out = [];
+    for (let k = 0; k < 13000; k++) { const r = Math.random() * tot; let lo = 0, hi = cand.length - 1; while (lo < hi) { const m = (lo + hi) >> 1; if (cum[m] < r) lo = m + 1; else hi = m; } const q = cand[lo];
+      out.push({ x: q.x + rnd(-.002, .002), y: q.y + rnd(-.002, .002), c: q.c.map(v => Math.min(255, v * 1.08 + 12)), a: .6 + q.l / 255 * .4, s: rnd(1.3, 2.3) }); }
+    out.aspect = w / h; return out;
+  }
+  function brasilShape() {
+    const br = (window.GEO && GEO.br) || [], out = [];
+    const xs = br.map(p => p[0]), ys = br.map(p => p[1]);
+    const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys), k = Math.cos(15 * Math.PI / 180);
+    const nx = lon => (lon - x0) / (x1 - x0), ny = lat => (y1 - lat) / (y1 - y0);
+    br.forEach(([lon, lat]) => { for (let r = 0; r < 6; r++) out.push({ x: nx(lon) + rnd(-.008, .008), y: ny(lat) + rnd(-.008, .008), c: [205, 210, 240], a: rnd(.3, .7), s: rnd(1.1, 2) }); });
+    const C = [[-46.79, -23.53], [-46.43, -23.89], [-47.93, -19.75], [-45.95, -21.43]].map(([lo, la]) => [nx(lo), ny(la)]);
+    C.forEach(([cx, cy]) => { for (let r = 0; r < 260; r++) { const a = rnd(0, 6.28), d = Math.pow(Math.random(), 2) * .03; out.push({ x: cx + Math.cos(a) * d, y: cy + Math.sin(a) * d, c: AMB, a: rnd(.6, 1), s: rnd(1.4, 2.6) }); } });
+    [[1, 0], [0, 3], [3, 2], [1, 2]].forEach(([a, b]) => { const [ax, ay] = C[a], [bx, by] = C[b], mx2 = (ax + bx) / 2, my2 = (ay + by) / 2 - .06;
+      for (let t = 0; t <= 1; t += .004) { const u = 1 - t; out.push({ x: u * u * ax + 2 * u * t * mx2 + t * t * bx, y: u * u * ay + 2 * u * t * my2 + t * t * by, c: AMB, a: .8, s: 1.6 }); } });
+    out.aspect = ((x1 - x0) * k) / (y1 - y0); return out;
+  }
+  function stripesShape() {
+    const polys = [[[60, 0], [240, 0], [226, 18], [46, 18]], [[30, 27], [240, 27], [226, 45], [16, 45]], [[14, 54], [240, 54], [226, 72], [0, 72]], [[44, 81], [240, 81], [226, 99], [30, 99]]];
+    const inside = (p, [x, y]) => { let c = false; for (let i = 0, j = p.length - 1; i < p.length; j = i++) if ((p[i][1] > y) !== (p[j][1] > y) && x < (p[j][0] - p[i][0]) * (y - p[i][1]) / (p[j][1] - p[i][1]) + p[i][0]) c = !c; return c; };
+    const out = [];
+    while (out.length < 6000) { const pt = [rnd(0, 240), rnd(0, 100)], k = polys.findIndex(pp => inside(pp, pt)); if (k < 0) continue;
+      out.push({ x: pt[0] / 240, y: pt[1] / 100, c: k % 2 ? [239, 165, 14] : AMB, a: rnd(.5, 1), s: rnd(1.1, 2.2) }); }
+    out.aspect = 2.4; return out;
+  }
+  function dustShape() {
+    const out = []; for (let k = 0; k < 2000; k++) out.push({ x: Math.random(), y: Math.random(), c: Math.random() < .2 ? AMB : [190, 195, 230], a: rnd(.08, .35), s: rnd(.8, 1.6) });
+    out.aspect = 0; return out;
+  }
+
+  // where each shape sits on screen
+  function box(name, aspect) {
+    if (name === 'dust' || !aspect) return { x: 0, y: 0, w: W, h: H };
+    let w, h, cx, cy;
+    if (mob) { w = W * .86; h = w / aspect; if (h > H * .46) { h = H * .46; w = h * aspect; } cx = W / 2; cy = H - h / 2 - H * .04; }
+    else { const big = name === 'truck' ? .84 : name === 'brasil' ? .66 : .34; h = H * big; w = h * aspect; if (w > W * .44) { w = W * .44; h = w / aspect; } cx = W * (name === 'truck' ? .74 : .78); cy = H * (name === 'truck' ? .55 : name === 'stripes' ? .3 : .55); }
+    return { x: cx - w / 2, y: cy - h / 2, w, h };
+  }
+
+  function retarget() {
+    const sh = shapes[cur] || shapes.dust; if (!sh) return;
+    const b = box(cur, sh.aspect), m = sh.length;
+    for (let i = 0; i < N; i++) {
+      const q = sh[(i * 7919) % m], p = P[i];
+      p.tx = b.x + q.x * b.w; p.ty = b.y + q.y * b.h; p.c = q.c; p.ta = q.a * (cur === 'truck' ? 1 : cur === 'dust' ? .9 : .55); p.s = q.s;
+      p.k = reduce ? 1 : rnd(.035, .085);
+    }
+  }
+  function size() {
+    dpr = Math.min(2, devicePixelRatio || 1); W = innerWidth; H = innerHeight; mob = W < 900;
+    cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const want = mob ? 5000 : 11000;
+    while (P.length < want) P.push({ x: rnd(0, W), y: rnd(0, H), tx: 0, ty: 0, a: 0, ta: 0, c: [255, 255, 255], s: 1, k: .05, seed: rnd(0, 1000) });
+    N = want; retarget();
+  }
+  shapes.dust = dustShape(); shapes.stripes = stripesShape(); shapes.brasil = brasilShape(); shapes.truck = shapes.dust;
+  size(); addEventListener('resize', size);
+  const img = new Image(); img.onload = () => { try { shapes.truck = truckShape(img); if (cur === 'truck') retarget(); } catch (e) {} }; img.src = 'assets/caminhao-rzv.png';
+
+  // which section owns the swarm
+  const secs = [...document.querySelectorAll('[data-shape]')];
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting && e.target.dataset.shape !== cur) { cur = e.target.dataset.shape; retarget(); } }), { rootMargin: '-48% 0px -48% 0px' });
+  secs.forEach(sct => io.observe(sct));
+  addEventListener('pointermove', e => { mx = e.clientX; my = e.clientY; }, { passive: true });
+  addEventListener('pointerleave', () => { mx = my = -1e4; });
+
+  const frame = now => {
+    requestAnimationFrame(frame);
+    ctx.clearRect(0, 0, W, H);
+    const sh = shapes[cur]; const b = box(cur, sh && sh.aspect);
+    if (cur !== 'dust') {
+      const g = ctx.createRadialGradient(b.x + b.w * .5, b.y + b.h * .5, 0, b.x + b.w * .5, b.y + b.h * .5, Math.max(b.w, b.h) * .75);
+      g.addColorStop(0, 'rgba(241,172,33,.18)'); g.addColorStop(.5, 'rgba(58,79,216,.08)'); g.addColorStop(1, 'rgba(10,9,32,0)');
+      ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    }
+    ctx.globalCompositeOperation = 'lighter';
+    const t = now / 1000, amp = reduce ? 0 : (cur === 'dust' ? 6 : .7);
+    for (let i = 0; i < N; i++) {
+      const p = P[i];
+      p.x += (p.tx - p.x) * p.k; p.y += (p.ty - p.y) * p.k; p.a += (p.ta - p.a) * .06;
+      const dx = p.x - mx, dy = p.y - my, d2 = dx * dx + dy * dy;
+      if (d2 < 9000) { const f = (9000 - d2) / 9000 * 7; const d = Math.sqrt(d2) || 1; p.x += dx / d * f; p.y += dy / d * f; }
+      const jx = Math.sin(t * .9 + p.seed) * amp, jy = Math.cos(t * .7 + p.seed * 1.3) * amp;
+      ctx.fillStyle = `rgba(${p.c[0]},${p.c[1]},${p.c[2]},${p.a})`;
+      ctx.fillRect(p.x + jx, p.y + jy, p.s, p.s);
+    }
+    ctx.globalCompositeOperation = 'source-over';
+  };
+  requestAnimationFrame(frame);
+})();
+
+// ---- footer map
+(() => {
+  if (!window.d3) return;
+  const CITIES = [
+    { n: 'Osasco', c: [-46.79, -23.53], dx: -92, dy: -26 },
+    { n: 'Cubatão', c: [-46.43, -23.89], dx: 16, dy: 22 },
+    { n: 'Uberaba', c: [-47.93, -19.75], dx: -96, dy: -18 },
+    { n: 'Alfenas', c: [-45.95, -21.43], dx: 18, dy: -16 }
+  ];
+  const G = window.GEO || { br: [] };
+  footerMap(G.br);
+
+  function footerMap(pts) {
+    const cv = document.getElementById('map'), ctx = cv.getContext('2d');
+    const paint = () => {
+      const dpr = Math.min(2, devicePixelRatio || 1), w = cv.clientWidth, h = cv.clientHeight;
+      cv.width = w * dpr; cv.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, w, h);
+      const pr = d3.geoMercator().fitExtent([[8, 8], [w - 8, h - 8]], { type: 'MultiPoint', coordinates: pts });
+      ctx.fillStyle = '#3b3770';
+      for (const p of pts) { const [x, y] = pr(p); ctx.beginPath(); ctx.arc(x, y, 1.7, 0, Math.PI * 2); ctx.fill(); }
+      ctx.fillStyle = '#f1ac21';
+      for (const c of CITIES) { const [x, y] = pr(c.c); ctx.beginPath(); ctx.arc(x, y, 4.5, 0, Math.PI * 2); ctx.fill(); }
+    };
+    paint(); addEventListener('resize', paint);
+  }
+})();
+</script>
+</body>
+</html>
